@@ -1,0 +1,62 @@
+{% extends "chatsystem/master.html" %}
+
+{% block content %}
+
+<p>
+    Hello World
+</p>
+
+
+
+<form id="chat-form">
+    <input type="text" name="message" id="message">
+
+</form>
+
+<p id="messages">
+
+</p>
+
+<script>
+    let url = `ws://${window.location.host}/ws/`;
+
+    const chat_socket = new WebSocket(url);
+    
+    chat_socket.onmessage = function(e){
+        let data = JSON.parse(e.data);
+        console.log('Data: ', data);
+
+        if(data.type === 'check-receive'){
+            let messages = document.getElementById('messages')
+
+            messages.insertAdjacentHTML(
+                'beforeend',
+                `<p>
+                    ${data.sent}    
+                </p>`
+            )
+        }
+    }
+
+    let form = document.getElementById('chat-form')
+
+    form.addEventListener('submit', (e)=> {
+        e.preventDefault()
+
+        let message = e.target.message.value
+        
+        chat_socket.send(
+            JSON.stringify(
+                {
+                    'Message' : message,
+                }
+            )
+        )
+
+        form.reset()
+    }
+
+    )
+</script>
+
+{% endblock %}
