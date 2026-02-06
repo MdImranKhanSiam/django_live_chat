@@ -1,0 +1,25 @@
+{% extends "chatsystem/master.html" %}
+
+{% block content %}
+<h1>
+    Registration Form
+</h1>
+
+{% if form.errors %}
+    {{ form.errors }}
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.username }}
+    {{ form.password1 }}
+    {{ form.password2 }}
+
+    <button type="submit">
+        Register
+    </button>
+</form>
+
+{% endblock  %}
+

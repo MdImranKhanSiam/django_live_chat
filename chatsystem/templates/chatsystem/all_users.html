@@ -1,0 +1,52 @@
+{% extends "chatsystem/master.html" %}
+
+{% block content %}
+
+<style>
+    .users-list{
+
+    }
+    
+    .users-list ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .users-list li {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        
+    }
+
+    .users-list a{
+        color: rgb(0, 0, 0);
+        text-decoration: none;
+        font-size: 16px;
+        padding-right: 100px;
+    }
+</style>
+
+<h1>
+    All users
+</h1>
+
+<div class="users-list">
+    {% for user in users %}
+        <li>
+            <a href="">
+                {{ user.username }}
+            </a>
+
+            <a href="{% url 'private-chat' user.id %}">
+                Send Message
+            </a>
+        </li>
+    {% empty %}
+        <li>
+            No users found.
+        </li>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

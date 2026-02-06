@@ -47,7 +47,16 @@ ASGI_APPLICATION = 'live_chat.asgi.application'
 CHANNEL_LAYERS = {
     'default' : {
         'BACKEND' : 'channels.layers.InMemoryChannelLayer'
-    }
+
+        # 'BACKEND' : 'channels_redis.core.RedisChannelLayer',
+        
+        # # Local Redis
+        # 'CONFIG' : {
+        #     'hosts' : [
+        #         ('127.0.0.1', 6379)
+        #     ],
+        # },
+    },
 }
 
 MIDDLEWARE = [
@@ -66,7 +75,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'templates',
+            BASE_DIR / 'templates/',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -87,8 +96,15 @@ WSGI_APPLICATION = 'live_chat.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'live_chat_postgresql_database',
+        'USER': 'live_chat_postgresql_database_user',
+        'PASSWORD': 'dvRS1uNgerO38cEKcXBSv5AYziaN3bhh',
+        'HOST': 'dpg-d62tii94tr6s73fm8m30-a.oregon-postgres.render.com',
+        'PORT': '5432',
     }
 }
 
